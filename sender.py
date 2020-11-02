@@ -50,7 +50,7 @@ class Sender():
 
     def play_freq(self, amplitude):
         freq= self.freq * amplitude
-        sd.playrec(freq, self.fs)
+        sd.play(freq, self.fs)
         sd.wait()
 
         
