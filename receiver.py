@@ -4,6 +4,7 @@ import numpy as np
 from scipy.fftpack import fft, fftshift
 from scipy.io.wavfile import write
 import soundfile as sf
+import peakutils
 
 class Receiver:
     def __init__(self, fs, recording=None):
@@ -43,6 +44,15 @@ class Receiver:
         plt.plot(X, np.abs(Y))
         plt.grid()
         plt.show()
+        self.fftX = X
+        self.fftY = Y
+        
+    def get_number(self):
+        index = peakutils.indexes(np.abs(self.fftY), thres=0.5, min_dist=50)
+        print("index de picos {}" .format(index))
+        for freq in self.fftX[index]:
+            if freq > 0:
+                print("freq de pico --> {}" .format(int(freq)))
 
 
 receiver = Receiver(fs=48000)
@@ -50,3 +60,4 @@ receiver.record(seconds=2)
 receiver.save_rec('recording.wav')
 receiver.plot_recording()
 receiver.calcFFT()
+receiver.get_number()
