@@ -39,3 +39,7 @@ class Receiver:
         plt.show()
 
 
+receiver = Receiver(fs=48000)
+receiver.play_recording()
+receiver.plot_recording()
+receiver.calcFFT()
