@@ -43,23 +43,18 @@ class Sender():
 
         self.freq = y
 
-    def get_rec(self):
-        freq = self.freq
-        self.recording = sd.playrec(freq, self.fs, channels=1)
-        sd.wait()
-
     def plot_freq(self):
         plt.figure()
         plt.plot(self.freq[:500], '.-')
         plt.show()
 
-    play_freq(self, amplitude):
-    freq= self.freq * amplitude
+    def play_freq(self, amplitude):
+        freq= self.freq * amplitude
         sd.playrec(freq, self.fs)
         sd.wait()
 
         
 sender = Sender(fs=48000)
 sender.get_num()
-sender.get_freq(5)
-sender.get_rec()
+sender.get_freq(time=5)
+sender.play_freq(amplitude=1)

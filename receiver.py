@@ -2,6 +2,8 @@ from matplotlib import pyplot as plt
 import sounddevice as sd
 import numpy as np
 from scipy.fftpack import fft, fftshift
+from scipy.io.wavfile import write
+import soundfile as sf
 
 class Receiver:
     def __init__(self, fs, recording=None):
@@ -12,6 +14,11 @@ class Receiver:
         duration = seconds
         self.recording = sd.rec(int(duration * self.fs), samplerate=self.fs, channels=1)
         sd.wait()
+
+    def save_rec(self, filename):
+        write(filename, self.fs, self.recording)
+        audio, samplerate = sf.read('recording.wav')
+        self.recording = audio
 
     def plot_recording(self):
         plt.plot(self.recording)
@@ -35,11 +42,11 @@ class Receiver:
         plt.figure()
         plt.plot(X, np.abs(Y))
         plt.grid()
-        plt.xlim(0, 10000)
         plt.show()
 
 
 receiver = Receiver(fs=48000)
-receiver.play_recording()
+receiver.record(seconds=2)
+receiver.save_rec('recording.wav')
 receiver.plot_recording()
 receiver.calcFFT()
