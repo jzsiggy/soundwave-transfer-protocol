@@ -4,8 +4,9 @@ import numpy as np
 from scipy.fftpack import fft, fftshift
 
 class Receiver:
-    def __init__(self, fs):
+    def __init__(self, fs, recording=None):
         self.fs = fs
+        self.recording = recording
 
     def record(self, seconds):
         duration = seconds
@@ -22,7 +23,7 @@ class Receiver:
         sd.wait()
 
     def calcFFT(self):
-        signal = self.recording * 100
+        signal = self.recording
         fs = self.fs
         
         N  = len(signal)
@@ -38,8 +39,3 @@ class Receiver:
         plt.show()
 
 
-receiver = Receiver(48000)
-receiver.record(3)
-receiver.play_recording()
-receiver.plot_recording()
-receiver.calcFFT()

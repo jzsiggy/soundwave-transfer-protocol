@@ -43,38 +43,19 @@ class Sender():
 
         self.freq = y
 
-    def play_tone(self, amplitude):
-        freq = self.freq * amplitude
-        
-        sd.play(freq, self.fs)
+    def get_rec(self):
+        freq = self.freq
+        self.recording = sd.playrec(freq, self.fs, channels=1)
         sd.wait()
 
+    def plot_freq(self):
         plt.figure()
-        plt.plot(freq[:500], '.-')
+        plt.plot(self.freq[:500], '.-')
         plt.show()
+
+    play_freq(self, amplitude):
+    freq= self.freq * amplitude
+        sd.playrec(freq, self.fs)
+        sd.wait()
+
         
-
-
-sender = Sender(48000)
-sender.get_num()
-sender.get_freq(5)
-sender.play_tone(1)
-
-
-
-
-# from scipy.fftpack import fft, fftshift
-
-# def calcFFT(signal, fs):
-#     N  = len(signal)
-#     T  = 1/fs
-#     xf = np.linspace(-1.0/(2.0*T), 1.0/(2.0*T), N)
-#     yf = fft(signal)
-#     X, Y = xf, fftshift(yf)
-
-#     plt.figure()
-#     plt.stem(X,np.abs(Y))
-#     plt.xlim(0, 2000)
-#     plt.show()
-
-# calcFFT(sender.freq, 48000)
