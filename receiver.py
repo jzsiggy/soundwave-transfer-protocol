@@ -50,9 +50,16 @@ class Receiver:
     def get_number(self):
         index = peakutils.indexes(np.abs(self.fftY), thres=0.5, min_dist=50)
         print("index de picos {}" .format(index))
+        frequencies = []
         for freq in self.fftX[index]:
             if freq > 0:
                 print("freq de pico --> {}" .format(int(freq)))
+                frequencies.append(freq)
+                
+        for number in self.hash:
+            if (frequenccies==self.hash[number]).all():
+                print(number)
+                break
 
 
 receiver = Receiver(fs=48000)
